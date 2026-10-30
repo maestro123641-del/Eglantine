@@ -21,14 +21,13 @@ jobs:
         choco install ninja -y
 
     - name: Setup Vulkan SDK
-      uses: humbletim/setup-vulkan-sdk-action@v1.2.0
+      uses: vulkan-sdk/setup-vulkan-sdk@v1
       with:
         vulkan-query-version: 1.3.268.0
-        vulkan-components: Vulkan-Headers, Vulkan-Loader, glslang
 
     - name: Configure CMake
       run: |
-        cmake -B build -G "Ninja" -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=cl -DCMAKE_CXX_COMPILER=cl
+        cmake -B build -G "Ninja" -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=cl -DCMAKE_CXX_COMPILER=cl -DVULKAN_SDK="%VULKAN_SDK%"
 
     - name: Build Project
       run: |
