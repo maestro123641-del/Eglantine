@@ -16,15 +16,15 @@ jobs:
     - name: Setup MSVC Developer Command Prompt
       uses: ilammy/msvc-dev-cmd@v1
 
-    - name: Install dependencies via Chocolatey
+    - name: Install Ninja
       run: |
-        choco install ninja vulkan-sdk glslang -y
+        choco install ninja -y
 
-    - name: Add Vulkan Tools to PATH
-      run: |
-        echo "C:\VulkanSDK\1.3.296.0\Bin" >> $env:GITHUB_PATH
-        echo "C:\VulkanSDK\Bin" >> $env:GITHUB_PATH
-        echo "$env:VULKAN_SDK\Bin" >> $env:GITHUB_PATH
+    - name: Setup Vulkan SDK
+      uses: humbletim/setup-vulkan-sdk-action@v1.2.0
+      with:
+        vulkan-query-version: 1.3.268.0
+        vulkan-components: Vulkan-Headers, Vulkan-Loader, glslang
 
     - name: Configure CMake
       run: |
